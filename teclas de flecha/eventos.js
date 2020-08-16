@@ -5,22 +5,43 @@ var teclas = {
     DOWN: 40
 };
 
-document.addEventListener("keyup", dibujarTeclado);
+document.addEventListener("keydown", dibujarTeclado);
+var cuadro = document.getElementById("area");
+var papel = cuadro.getContext("2d");
+var x = 150;
+var y = 150;
+
+function trazo(color, initX, initY, finX, finY, lienzo) {
+    lienzo.beginPath();
+    lienzo.strokeStyle = color || "green";
+    lienzo.lineWidth = 3;
+    lienzo.moveTo(initX, initY);
+    lienzo.lineTo(finX, finY);
+    lienzo.stroke();
+    lienzo.closePath();
+}
+//dibujo de un punto:
+trazo("red", 149, 149, 151, 151, papel)
 
 function dibujarTeclado(evento) {
-
+    var colorcito = "blue";
+    var movimiento = 10;
     switch (evento.keyCode) {
         case teclas.LEFT:
-            document.write("IZQUIERDA");
+            trazo(colorcito, x, y, x - movimiento, y, papel);
+            x = x - movimiento;
             break;
         case teclas.UP:
-            document.write("ARRIBA");
+            trazo(colorcito, x, y, x, y - movimiento, papel);
+            y = y - movimiento;
             break;
         case teclas.RIGTH:
-            document.write("DERECHA");
+            trazo(colorcito, x, y, x + movimiento, y, papel);
+            x = x + movimiento;
             break;
         case teclas.DOWN:
-            document.write("ABAJO");
+            trazo(colorcito, x, y, x, y + movimiento, papel);
+            y = y + movimiento;
             break;
         default:
             break;
